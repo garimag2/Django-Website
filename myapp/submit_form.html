@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block title %}Edit Items{% endblock %}
+{% block content %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+</head>
+{% if user.is_authenticated %}
+    <div class="header">
+        <a href="{% url 'home' %}" class="logo">Hi {{ user.username }}!</a>
+        <div class="header-right">
+            <a href="{% url 'home' %}" class="tab">Home</a>
+            <a href="{% url 'chat_view' %}" class="tab">Messages</a>
+            <a href="{% url 'add_view'%}" class="tab">Add Item</a>
+            <a href="{%url 'add_complaint' %}" class="tab">Complaint</a>
+            <a href="{%url 'logout' %}" class="tab">Logout</a>
+        </div>
+    </div>
+<form enctype="multipart/form-data" action="{% url  'add_edit_items' selling_items.id %}" method="post" novalidate>
+    {% csrf_token %}
+    <div style="margin-right:300px; margin-left:300px; font-weight:bold">
+    <!---<table style = "border:1" >-->
+        {{ form | crispy }}
+    <!--</table>--> 
+    </div>   
+    <div class="input-group-btn" style="overflow: hidden; padding-right: .5em;">
+        <input class = "btn btn-primary mb-2" type="submit" value="Submit">
+    </div>
+</form>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $("#id_sell_name").css('background-color', '#D3D3D3');
+        $("#id_sell_post_date").css('background-color', '#D3D3D3');
+        $("#id_sell_username").css('background-color', '#D3D3D3');
+        $("#id_sell_mail").css('background-color', '#D3D3D3');
+        /*$("#id_sell_title_text").attr('value', '{{ selling_items.sell_title_text }}');
+        $("#id_sell_post_date").attr('value', '{{ selling_items.sell_post_date }}');
+        //$("#id_sell_post_date").prop('disabled', true);
+        $("#id_sell_price").attr('value', '{{ selling_items.sell_price }}');
+        
+        //$("#id_sell_name").prop('disabled', true);
+        $("#id_sell_username").attr('value', '{{ selling_items.sell_username }}');
+        $("#id_sell_username").prop('disabled', true);
+        $("#id_sell_mail").attr('value', '{{ selling_items.sell_mail }}');
+        $("#id_sell_mail").prop('disabled', true);
+        $("#id_sell_photo").css('color','transparent');
+        //$("#id_sell_photo").attr('value', '{{ selling_items.sell_photo }}');
+        /*String val = '{{ selling_items.sell_description }}'.text();
+        $("#id_sell_description").append(para)
+        console.log('{{ selling_items.sell_photo }}')
+        $("#id_sell_description").attr('value', '{{ selling_items.sell_description }}');*/
+    });
+</script> 
+{% endif %}
+{% endblock %}

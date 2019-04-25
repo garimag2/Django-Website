@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+</head>
+{% if user.is_authenticated %}
+    <div class="header">
+        <a href="{% url 'home' %}" class="logo">Hi {{ user.username }}!</a>
+        <div class="header-right">
+            <a href="{% url 'home' %}" class="tab">Home</a>
+            <a href="{% url 'chat_view' %}" class="tab">Messages</a>
+            <a href="{% url 'add_view'%}" class="tab">Add Item</a>
+            <a href="{%url 'add_complaint' %}" class="tab">Complaint</a>
+            <a href="{%url 'logout' %}" class="tab">Logout</a>
+        </div>
+    </div>
+    <div style="display: flex;align-items: center;justify-content: center;">
+        <form method="GET" action="{% url 'search' %}"  value="{{request.GET.search}}" class="form-inline" >
+            <div class="form-group mx-sm-3 mb-2">
+                <input class="form-control" type="text" name="search" placeholder="Enter Search Term here...">
+            </div>
+            <div class="input-group-btn" style="overflow: hidden; padding-right: .5em;">
+                <input class = "btn btn-primary mb-2" type="submit" value="Submit" />
+            </div> 
+        </form>         
+    </div>
+    <strong>{{ boldmessage }}</strong></p>
+    {% if selling_items %}
+            {% for category in selling_items %}
+            <div class="selling-items">
+                <!--<div class="a-title">
+                  <h3><a href="">{{ category.sell_title_text }}</a></h3>
+                </div>-->
+                <div class="item">
+                    <div class="image">
+                        <a href="{% url 'selling_item_detail' category.id %}"><img src="{{ category.sell_photo.url }}" style="width:120px; height:80px;"></a>
+                    </div>
+                    <div class="description">
+                        <span><strong>{{ category.sell_title_text }}</strong></span>
+                        <span>{{ category.sell_name }}</span>
+                        <span>{{ category.sell_post_date }}</span>
+                    </div>
+                    <div class="total-price">${{ category.sell_price }}</div>
+                </div>
+              </div>
+            {% endfor %}
+        {% else %}
+            <strong>There are no categories present.</strong>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.tab').on('click', function() {
+                //    Remove .active class from all .tab class elements
+                $('.tab').removeClass('active');
+                //    Add .active class to currently clicked element
+                $(this).addClass('active');
+            })
+            });
+        </script>
+    {% endif %}
+{% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">Click here to login!</a>
+{% endif %}
+{% endblock %}

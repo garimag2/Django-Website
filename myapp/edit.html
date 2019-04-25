@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}Edit Items{% endblock %}
+{% block content %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
+{% if user.is_authenticated %}
+    <div class="header">
+        <a href="#default" class="logo">Hi {{ user.username }}!</a>
+        <div class="header-right">
+            <a class="active" href="#home">Home</a>
+            <a href="messages">Messages</a>
+            <a href="#settings">Settings</a>
+            <a href="{%url 'logout' %}">Logout</a>
+        </div>
+    </div>
+    <div class="container">
+        <form action='add_edit_items' method="POST">
+            <div class="row">
+                <div class="col-25">
+                    <label for="sell_title_text">Sell Item : </label>
+                </div>
+                <div class="col-75">
+                    <input id="sell_title_text" type="text" name="sell_title_text" placeholder='{{ selling_items.sell_title_text }}' >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                        <label for="sell_post_date">Sell Post Date : </label>
+                </div>
+                <div class="col-75">
+                        <input id="sell_post_date" type="datetime-local" name="sell_post_date" placeholder="{{ selling_items.sell_post_date }}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="sell_price">Sell Price : </label>
+                </div>
+                <div class="col-75">
+                    <input id="sell_price" type="number" name="sell_post_date" placeholder="{{ selling_items.sell_price }}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="sell_name">Sell Name : </label>
+                </div>
+                <div class="col-75">
+                    <input id="sell_name" type="text" name="sell_name" placeholder="{{ selling_items.sell_name }}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="sell_username">Sell Username : </label>
+                </div>
+                <div class="col-75">
+                    <input id="sell_username" type="text" name="sell_username" placeholder="{{ selling_items.sell_username }}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="sell_mail">Sell Email : </label>
+                </div>
+                <div class="col-75">
+                    <input id="sell_mail" type="email" name="sell_mail" placeholder="{{ selling_items.sell_mail }}" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="sell_photo">Sell Image : </label>
+                </div>
+                <div class="col-75">
+                    <input type="file" name="pic" accept="image/*">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="sell_description">Sell Description : </label>
+                </div>
+                <div class="col-75">
+                    <textarea id="sell_description" name="sell_description" placeholder="{{  selling_items.sell_description}} " style="height:200px"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}Edit Items{% endblock %}
+{% block content %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" />
+</head>
+<p>Your query has been submitted! Someone will contact you shortly</p>
+<a href="{% url 'home' %}">Back</a>
+{% endblock %}

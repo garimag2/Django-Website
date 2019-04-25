@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <title>{% block title %} Trading Application for Students {% endblock %}</title>
+    </head>
+    <body>
+        <main>
+                <div>
+                            <div style="text-align: center">
+                            <h1 class="mt-2">Student Trading Application</h1>
+                            <hr class="col-md-4 col-md-offset-4">
+                                {% block content %}
+                                {% endblock %}
+                            </div>
+                </div>      
+        </main>
+    </body>
+</html>
